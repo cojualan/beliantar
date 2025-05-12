@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "name": "Premium Chicken Nuggets",
+        "images": [
+            "https://placehold.co/400x300/FF6B6B/FFFFFF?text=Chicken+Nuggets+1 ",
+            "https://placehold.co/400x300/4ECDC4/FFFFFF?text=Chicken+Nuggets+2 ",
+            "https://placehold.co/400x300/45B7D1/FFFFFF?text=Chicken+Nuggets+3 "
+        ],
+        "marketPrice": 120,
+        "discount": 25,
+        "sellPrice": 90
+    },
+    {
+        "id": 2,
+        "name": "Mixed Vegetables Pack",
+        "images": [
+            "https://placehold.co/400x300/96CEB4/FFFFFF?text=Vegetables+1 ",
+            "https://placehold.co/400x300/FFEEAD/FFFFFF?text=Vegetables+2 ",
+            "https://placehold.co/400x300/FF8C42/FFFFFF?text=Vegetables+3 "
+        ],
+        "marketPrice": 80,
+        "discount": 15,
+        "sellPrice": 68
+    },
+    {
+        "id": 3,
+        "name": "Atlantic Salmon Fillets",
+        "images": [
+            "https://placehold.co/400x300/FFA07A/FFFFFF?text=Salmon+1 ",
+            "https://placehold.co/400x300/ADD8E6/FFFFFF?text=Salmon+2 ",
+            "https://placehold.co/400x300/87CEFA/FFFFFF?text=Salmon+3 "
+        ],
+        "marketPrice": 200,
+        "discount": 20,
+        "sellPrice": 160
+    },
+    {
+        "id": 4,
+        "name": "Homestyle Beef Meatballs",
+        "images": [
+            "https://placehold.co/400x300/CD5C5C/FFFFFF?text=Meatballs+1 ",
+            "https://placehold.co/400x300/DEB887/FFFFFF?text=Meatballs+2 ",
+            "https://placehold.co/400x300/D2B48C/FFFFFF?text=Meatballs+3 "
+        ],
+        "marketPrice": 150,
+        "discount": 20,
+        "sellPrice": 120
+    },
+    {
+        "id": 5,
+        "name": "Summer Fruits Mix",
+        "images": [
+            "https://placehold.co/400x300/FFD700/FFFFFF?text=Fruits+1 ",
+            "https://placehold.co/400x300/ADFF2F/FFFFFF?text=Fruits+2 ",
+            "https://placehold.co/400x300/DA70D6/FFFFFF?text=Fruits+3 "
+        ],
+        "marketPrice": 100,
+        "discount": 15,
+        "sellPrice": 85
+    },
+    {
+        "id": 6,
+        "name": "Belgian Chocolate Ice Cream",
+        "images": [
+            "https://placehold.co/400x300/A0522D/FFFFFF?text=Ice+Cream+1 ",
+            "https://placehold.co/400x300/D2B48C/FFFFFF?text=Ice+Cream+2 ",
+            "https://placehold.co/400x300/F5DEB3/FFFFFF?text=Ice+Cream+3 "
+        ],
+        "marketPrice": 90,
+        "discount": 20,
+        "sellPrice": 72
+    }
+]

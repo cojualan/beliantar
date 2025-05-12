@@ -1,11 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beli Antar</title>
-</head>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Beli Antar</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://unpkg.com/vuex@4.0.0/dist/vuex.global.js"></script>
+        <script src="./scripts/main.js" type="module"></script>
+    </head>
 <body>
-    <h1>Solusi Belanja Dari Rumah Anda</h1>
+    <div id="app" class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+                Beli Antar
+            </h1>
+            <p class="mt-4 max-w-2xl text-lg text-gray-500 lg:mx-auto">
+                Premium quality frozen products at unbeatable prices
+            </p>
+        </header>
+
+        <div v-else-if="products.length" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div v-for="product in products" :key="product.id" class="group relative rounded-lg bg-white p-6 shadow-lg transition-shadow hover:shadow-xl">
+                <div class="relative mb-6 aspect-[4/3]">
+                    <img :src="product.images[currentImage[product.id]]" :alt="product.name" 
+                        class="absolute inset-0 h-full w-full rounded-lg object-cover">
+                    
+                    <button @click="prevImage(product.id)" 
+                        class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 text-gray-500 shadow transition-colors hover:bg-gray-100">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                    <button @click="nextImage(product.id)"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 text-gray-500 shadow transition-colors hover:bg-gray-100">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
+                <div class="mt-4 flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 line-through">Market Price: ₹{{ product.marketPrice }}</p>
+                        <p class="text-xl font-bold text-green-600">₹{{ product.sellPrice }}</p>
+                        <p class="text-sm text-red-500">Save {{ product.discount }}%</p>
+                    </div>
+                    <button @click="handleBuy(product)" 
+                        class="ml-4 rounded bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fixed Vue reference
+        const { createApp, ref, onMounted } = Vue;
+
+        createApp({
+            setup() {
+                const products = ref([]);
+                const loading = ref(true);
+                const currentImage = ref({});
+
+                onMounted(async () => {
+                    try {
+                        const response = await fetch('./products.json');
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        products.value = await response.json();
+                        
+                        products.value.forEach(product => {
+                            currentImage.value[product.id] = 0;
+                        });
+                    } catch (error) {
+                        console.error('Error:', error);
+                    } finally {
+                        loading.value = false;
+                    }
+                });
+
+                const nextImage = (productId) => {
+                    const product = products.value.find(p => p.id === productId);
+                    currentImage.value[productId] = 
+                        (currentImage.value[productId] + 1) % product.images.length;
+                };
+
+                const prevImage = (productId) => {
+                    const product = products.value.find(p => p.id === productId);
+                    currentImage.value[productId] = 
+                        (currentImage.value[productId] - 1 + product.images.length) 
+                        % product.images.length;
+                };
+
+                const handleBuy = (product) => {
+                    const message = encodeURIComponent(
+                        `I want to buy ${product.name} (Rs.${product.sellPrice})`
+                    );
+                    window.open(`https://wa.me/919876543210?text= ${message}`, '_blank');
+                };
+
+                return {
+                    products,
+                    loading,
+                    currentImage,
+                    nextImage,
+                    prevImage,
+                    handleBuy
+                };
+            }
+        }).mount('#app');
+    </script>
 </body>
 </html>
